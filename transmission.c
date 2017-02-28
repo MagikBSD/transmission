@@ -51,13 +51,13 @@ void emit(char *fn, ucl_emitter_t format, ucl_object_t *conf) {
 }
 
 cmdl_t cmdl_parse(int ac, char **av) {
-    cmdl_t cmdl = { UCL_EMIT_JSON_COMPACT };
+    cmdl_t cmdl = { UCL_EMIT_CONFIG };
 
     for(int i=1; i<ac; i++) {
         if(av[i][0] == '-') {
             switch(av[i][1]) {
                 case 'j': cmdl.format = UCL_EMIT_JSON; break;
-                case 'c': cmdl.format = UCL_EMIT_CONFIG; break;
+                case 'c': cmdl.format = UCL_EMIT_JSON_COMPACT; break;
                 case 'y': cmdl.format = UCL_EMIT_YAML; break;
                 case 'm': cmdl.format = UCL_EMIT_MSGPACK; break;
             }
@@ -74,9 +74,9 @@ void help() {
         "Convert UCL config file to desired format.\n"
         "\n" \
         "Usage: transmission [-j|-c|-y|-m] <in file> <out file>\n" \
-        "\tEmit compacted JSON\n" \
+        "   \tEmit human readable config format\n" \
         " -j\tEmit fine formatted JSON\n" \
-        " -c\tEmit human readable config format\n" \
+        " -c\tEmit compacted JSON\n" \
         " -y\tEmit embedded YAML format\n" \
         " -m\tEmit msgpack output"
     );
