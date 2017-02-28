@@ -3,8 +3,9 @@ OBJ=${BIN}.o
 
 CC?=cc
 CFLAGS?=-O2 -march=native
-LDFLAGS?=
-LIBS?=-lucl
+CFLAGS+=-I${PREFIX}/include
+LDFLAGS+=-L${PREFIX}/lib
+LIBS+=-lucl
 PREFIX?=/usr/local
 
 

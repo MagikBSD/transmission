@@ -24,7 +24,7 @@
  */
 
 #include <stdio.h>
-#include <error.h>
+#include <err.h>
 #include <ucl.h>
 
 typedef struct cmdl {
@@ -37,7 +37,7 @@ ucl_object_t *parse(char *fn) {
     struct ucl_parser *parser = ucl_parser_new(0);
     ucl_parser_add_file(parser, fn);
     const char *error_msg = ucl_parser_get_error(parser);
-    if(error_msg) error(2, 0, "%s", error_msg);
+    if(error_msg) err(2, "%s", error_msg);
     ucl_object_t *conf = ucl_parser_get_object(parser);
     ucl_parser_free(parser);
     return conf;
