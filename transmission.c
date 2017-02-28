@@ -74,11 +74,11 @@ void help() {
         "Convert UCL config file to desired format.\n"
         "\n" \
         "Usage: transmission [-j|-c|-y|-m] <in file> <out file>\n" \
-        "   \tEmit human readable config format\n" \
-        " -j\tEmit fine formatted JSON\n" \
-        " -c\tEmit compacted JSON\n" \
-        " -y\tEmit embedded YAML format\n" \
-        " -m\tEmit msgpack output"
+        "    \tEmit human readable config format\n" \
+        "  -j\tEmit fine formatted JSON\n" \
+        "  -c\tEmit compacted JSON\n" \
+        "  -y\tEmit embedded YAML format\n" \
+        "  -m\tEmit msgpack output"
     );
 }
 
