@@ -44,9 +44,9 @@ ucl_object_t *parse(char *fn) {
 }
 
 void emit(char *fn, ucl_emitter_t format, ucl_object_t *conf) {
-    char *json = (char*) ucl_object_emit(conf, format);
+    char *output = (char*) ucl_object_emit(conf, format);
     FILE *file = fopen(fn, "w");
-    fputs(json, file);
+    fputs(output, file);
     fclose(file);
 }
 
