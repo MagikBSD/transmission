@@ -1,4 +1,4 @@
-BIN=transmission
+BIN=uncle
 OBJ=${BIN}.o
 
 CC?=cc

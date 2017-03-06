@@ -70,7 +70,7 @@ cmdl_t cmdl_parse(int ac, char **av) {
 
 void help() {
     puts(
-        "Transmission 0.1 by Grzegorz Blach\n" \
+        "UnCLe 0.1 by Grzegorz Blach\n" \
         "Convert UCL config file to desired format.\n"
         "\n" \
         "Usage: transmission [-j|-c|-y|-m] <in file> <out file>\n" \
