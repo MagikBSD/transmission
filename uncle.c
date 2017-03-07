@@ -24,6 +24,7 @@
  */
 
 #include <stdio.h>
+#include <unistd.h>
 #include <err.h>
 #include <ucl.h>
 
@@ -34,20 +35,28 @@ typedef struct cmdl {
 } cmdl_t;
 
 ucl_object_t *parse(char *fn) {
-    struct ucl_parser *parser = ucl_parser_new(0);
-    ucl_parser_add_file(parser, fn);
-    const char *error_msg = ucl_parser_get_error(parser);
-    if(error_msg) err(2, "%s", error_msg);
-    ucl_object_t *conf = ucl_parser_get_object(parser);
-    ucl_parser_free(parser);
-    return conf;
+    if(! access(fn, R_OK)) {
+        struct ucl_parser *parser = ucl_parser_new(0);
+        ucl_parser_add_file(parser, fn);
+        const char *error_msg = ucl_parser_get_error(parser);
+        if(error_msg) err(3, "%s", error_msg);
+        ucl_object_t *conf = ucl_parser_get_object(parser);
+        ucl_parser_free(parser);
+        return conf;
+    } else {
+        err(2, "%s", fn);
+    }
 }
 
 void emit(char *fn, ucl_emitter_t format, ucl_object_t *conf) {
     char *output = (char*) ucl_object_emit(conf, format);
     FILE *file = fopen(fn, "w");
-    fputs(output, file);
-    fclose(file);
+    if(file) {
+        fputs(output, file);
+        fclose(file);
+    } else {
+        err(4, "%s", fn);
+    }
 }
 
 cmdl_t cmdl_parse(int ac, char **av) {
