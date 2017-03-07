@@ -77,24 +77,24 @@ cmdl_t cmdl_parse(int ac, char **av) {
     return cmdl;
 }
 
-void help() {
-    puts(
+void help(char *av0) {
+    printf(
         "UnCLe 0.1 by Grzegorz Blach\n" \
         "Convert UCL config file to desired format.\n"
         "\n" \
-        "Usage: transmission [-j|-c|-y|-m] <in file> <out file>\n" \
+        "Usage: %s [-j|-c|-y|-m] <in file> <out file>\n" \
         "    \tEmit human readable config format\n" \
         "  -j\tEmit fine formatted JSON\n" \
         "  -c\tEmit compacted JSON\n" \
         "  -y\tEmit embedded YAML format\n" \
-        "  -m\tEmit msgpack output"
+        "  -m\tEmit msgpack output\n", av0
     );
 }
 
 int main(int ac, char **av) {
     cmdl_t cmdl = cmdl_parse(ac, av);
     if(! cmdl.out) {
-        help();
+        help(av[0]);
         return 1;
     }
 
