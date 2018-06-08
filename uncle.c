@@ -110,7 +110,7 @@ void help(char *av0) {
         "  -m\tEmit msgpack output\n" \
         "\n" \
         "In file can be set to '-' for reading input from stdin.\n" \
-        "Out file can be ommited for writting output to stdout.\n", av0
+        "Out file can be ommited for writing output to stdout.\n", av0
     );
 }
 
