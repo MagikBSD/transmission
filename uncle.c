@@ -57,12 +57,13 @@ ucl_object_t *parse(char *fn) {
 
     const char *error_msg = ucl_parser_get_error(parser);
     if(error_msg) err(3, "%s", error_msg);
-    ucl_object_t *conf = ucl_parser_get_object(parser);
+    ucl_object_t *object = ucl_parser_get_object(parser);
     ucl_parser_free(parser);
-    return conf;
+    return object;
 }
 
-void emit(char *fn, ucl_emitter_t format, ucl_object_t *conf) {
+void emit(char *fn, ucl_emitter_t format, ucl_object_t *object) {
+    char *output = (char*) ucl_object_emit(object, format);
     FILE *file;
 
     if(fn) {
@@ -72,9 +73,9 @@ void emit(char *fn, ucl_emitter_t format, ucl_object_t *conf) {
         file = stdout;
     }
 
-    char *output = (char*) ucl_object_emit(conf, format);
     fputs(output, file);
     if(fn) fclose(file);
+    free(output);
 }
 
 cmdl_t cmdl_parse(int ac, char **av) {
@@ -120,9 +121,9 @@ int main(int ac, char **av) {
         return 1;
     }
 
-    ucl_object_t *conf = parse(cmdl.in);
-    emit(cmdl.out, cmdl.format, conf);
-    free(conf);
+    ucl_object_t *object = parse(cmdl.in);
+    emit(cmdl.out, cmdl.format, object);
+    ucl_object_unref(object);
 
     return 0;
 }
